@@ -216,7 +216,7 @@
     <lastmod>2021-10-13T21:46:47-05:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/intermediate-cs/ch15/15-warmups-a/</loc>
-    <lastmod>2022-12-07T14:22:54-06:00</lastmod>
+    <lastmod>2022-12-23T19:25:14-06:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/intermediate-cs/ch20/20-troubleshoot/</loc>
     <lastmod>2021-08-24T16:46:16-05:00</lastmod>
@@ -237,7 +237,7 @@
     <lastmod>2021-10-13T21:46:47-05:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/ap-cs/haskell/ch07/20-maybe-b/</loc>
-    <lastmod>2022-11-30T07:00:53-06:00</lastmod>
+    <lastmod>2022-12-23T17:59:05-06:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/ap-cs/haskell/code-world/02-graphics/</loc>
     <lastmod>2022-11-19T10:17:56-06:00</lastmod>
@@ -1344,7 +1344,7 @@
     <lastmod>2021-08-25T15:13:53-05:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/intermediate-cs/sem1review/sem-review-g/</loc>
-    <lastmod>2022-12-19T10:25:06-06:00</lastmod>
+    <lastmod>2022-12-23T19:25:14-06:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/intermediate-cs/ch06/bigbang-05/</loc>
     <lastmod>2021-10-19T17:17:14-05:00</lastmod>
@@ -1691,11 +1691,14 @@
     <loc>https://wy-cs.info/ml/daily/2022-11-04/</loc>
     <lastmod>2022-11-04T17:59:46-05:00</lastmod>
   </url><url>
+    <loc>https://wy-cs.info/ap-cs/haskell/daily/2022-12-20/</loc>
+    <lastmod>2022-12-23T17:59:05-06:00</lastmod>
+  </url><url>
     <loc>https://wy-cs.info/</loc>
-    <lastmod>2022-12-19T10:25:06-06:00</lastmod>
+    <lastmod>2022-12-23T19:25:14-06:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/ap-cs/haskell/daily/2022-11-30/</loc>
-    <lastmod>2022-11-30T07:00:53-06:00</lastmod>
+    <lastmod>2022-12-23T17:59:05-06:00</lastmod>
   </url><url>
     <loc>https://wy-cs.info/ap-cs/haskell/code-world/</loc>
     <lastmod>2022-11-14T13:08:17-06:00</lastmod>

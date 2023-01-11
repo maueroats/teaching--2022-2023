@@ -55,7 +55,8 @@
 
 ;(check-within (posn-length (make-posn 5 12)) 13 0.001)
 
-(check-expect (posn-subtract (make-posn 20 21)
+;; testing alias
+#;(check-expect (posn-subtract (make-posn 20 21)
                              (make-posn 5 12))
               (make-posn 15 9))
 
