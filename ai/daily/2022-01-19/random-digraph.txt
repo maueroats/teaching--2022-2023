@@ -1,0 +1,40 @@
+from collections import deque, defaultdict
+
+def random_dag_all_in_one(n_vertices: int, edge_probability: float) -> Graph:
+    ## This is a copy and paste assembly job of 3 separate functions.
+    ## You should write helper functions, do not copy this style.
+    ## Rationale for writing this: easy to copy and paste, use it without understanding.
+    
+    ## Make a random graph. Might not be connected.
+    vertices = list(range(n_vertices))
+    edges = defaultdict(list)
+    for src in range(n_vertices):
+        for target in range(src+1, n_vertices):
+            make_edge = random.random() < edge_probability
+            if make_edge:
+                edges[src].append(target)
+
+    ## Compute discovered = the set of vertices in the connected component containing 0
+    start = 0
+    discovered = set()
+    examine = deque([start])
+
+    while examine:
+        current = examine.popleft()
+        discovered.add(current)
+        connected = set(edges[current])
+        for c in connected:
+            if c not in discovered:
+                examine.append(c)
+                discovered.add(c)
+
+    ## Change vertex numbering so we use 0 .. len(discovered)
+    shrunk_edges = { v: (set(edges[v]) & discovered) for v in discovered }
+    vorder = list(discovered)
+    n_vertices_new = len(vorder)
+    # random.shuffle(vorder)
+    get_new = {vertices[w]: v for v,w in enumerate(vorder)}
+    get_old = {v : vertices[w] for v,w in enumerate(vorder)}
+    new_edges = {v:[get_new[w] for w in shrunk_edges[get_old[v]]] for v in range(n_vertices_new)}
+    return Graph(nvertices=n_vertices_new, edges=new_edges)
+    

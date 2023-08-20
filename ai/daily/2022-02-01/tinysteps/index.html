@@ -1,0 +1,386 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.111.3">
+<meta name="robots" content="index, follow">
+
+
+<link rel="shortcut icon" href="/teaching--2022-2023/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/teaching--2022-2023/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/teaching--2022-2023/favicons/android-192x192.png" sizes="192x192">
+
+<title>Tiny Steps | WY CS</title>
+<meta name="description" content="Little steps toward a solver.">
+<meta property="og:title" content="Tiny Steps" />
+<meta property="og:description" content="Little steps toward a solver." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-02-01/tinysteps/" /><meta property="article:section" content="ai" />
+<meta property="article:published_time" content="2022-02-12T22:02:19-06:00" />
+<meta property="article:modified_time" content="2022-02-14T06:56:26-06:00" />
+<meta itemprop="name" content="Tiny Steps">
+<meta itemprop="description" content="Little steps toward a solver."><meta itemprop="datePublished" content="2022-02-12T22:02:19-06:00" />
+<meta itemprop="dateModified" content="2022-02-14T06:56:26-06:00" />
+<meta itemprop="wordCount" content="173">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tiny Steps"/>
+<meta name="twitter:description" content="Little steps toward a solver."/>
+
+
+
+
+<link rel="preload" href="/teaching--2022-2023/scss/main.min.5f7be202e27d1d986f6d9b9666f9a532caad89fd93e20831c5503c75bcbd6a05.css" as="style">
+<link href="/teaching--2022-2023/scss/main.min.5f7be202e27d1d986f6d9b9666f9a532caad89fd93e20831c5503c75bcbd6a05.css" rel="stylesheet" integrity="">
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="/teaching--2022-2023/"><span class="navbar-brand__logo navbar-logo"></span><span class="navbar-brand__name">WY CS</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="/teaching--2022-2023/ecs/"><span>ECS</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="/teaching--2022-2023/intermediate-cs/"><span>IntermediateCS</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="/teaching--2022-2023/ap-cs/"><span>AP CS</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="/teaching--2022-2023/ai/"><span class="active">AI</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="/teaching--2022-2023/ml/"><span>ML</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="/teaching--2022-2023/resources/"><span>Resources</span></a>
+      </li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-teaching--2022-2023ai-li">
+  <a href="/teaching--2022-2023/ai/" title="Artifical Intelligence" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-teaching--2022-2023ai"><span class="">AI</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-teaching--2022-2023aidaily-li">
+  <a href="/teaching--2022-2023/ai/daily/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-teaching--2022-2023aidaily"><span class="">Daily</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidailydesign-process-li">
+  <a href="/teaching--2022-2023/ai/daily/design-process/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidailydesign-process"><span class="">Design Process</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-08-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-08/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-08"><span class="">09-08</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-10-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-10/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-10"><span class="">09-10</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-14-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-14/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-14"><span class="">09-14</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-15-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-15/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-15"><span class="">09-15</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-17-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-17/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-17"><span class="">09-17</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-21-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-21/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-21"><span class="">09-21</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-23-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-23/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-23"><span class="">09-23</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-28-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-28/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-28"><span class="">09-28</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-29-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-29/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-29"><span class="">09-29</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-09-30-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-09-30/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-09-30"><span class="">09-30</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-06-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-06/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-06"><span class="">10-06 Graph</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-08-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-08/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-08"><span class="">10-08 Shortest</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-13a-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-13a/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-13a"><span class="">10-13 Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-13-stringy-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-13-stringy/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-13-stringy"><span class="">10-13 Stringy</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-15-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-15/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-15"><span class="">10-15 Diameter</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-19-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-19/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-19"><span class="">10-19 Connected</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-20-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-20/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-20"><span class="">10-20 Two Coloring</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-10-27-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-10-27/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-10-27"><span class="">10-27 Slow Cut</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-11-16-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-11-16/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-11-16"><span class="">11-16 Tree Diam</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-12-01-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-12-01/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-12-01"><span class="">12-01 Weighted</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-12-02-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-12-02/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-12-02"><span class="">12-02 MST Testing</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2021-12-06-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-12-06/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-12-06"><span class="">12-06 MST Wrapup</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-teaching--2022-2023aidaily2021-12-14-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-12-14/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-teaching--2022-2023aidaily2021-12-14"><span class="">12-14 Kruskal</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-teaching--2022-2023aidaily2021-12-14kruskal-algo-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-12-14/kruskal-algo/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-12-14kruskal-algo"><span class="">Kruskal Algorithm</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-teaching--2022-2023aidaily2021-12-14kruskal-guide-li">
+  <a href="/teaching--2022-2023/ai/daily/2021-12-14/kruskal-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2021-12-14kruskal-guide"><span class="">Kruskal Guide</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2022-01-14-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-01-14/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-01-14"><span class="">01-14 Minimum Distance</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2022-01-19-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-01-19/" title="Topological Sort" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-01-19"><span class="">01-19 Topo Sort</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2022-01-19-writeup-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-01-19-writeup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-01-19-writeup"><span class="">01-19 Topo Writeup</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-teaching--2022-2023aidaily2022-02-01-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-02-01/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-teaching--2022-2023aidaily2022-02-01"><span class="">02-01 Solver</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023aidaily2022-02-01datastruct-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-02-01/datastruct/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-02-01datastruct"><span class="">Data Structures</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-teaching--2022-2023aidaily2022-02-01tinysteps-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-02-01/tinysteps/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-02-01tinysteps"><span class="td-sidebar-nav-active-item">Tiny Steps</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-teaching--2022-2023aidaily2022-03-04-minimax-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-03-04-minimax/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-teaching--2022-2023aidaily2022-03-04-minimax"><span class="">Minimax</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-teaching--2022-2023aidaily2022-03-04-minimaxsketch-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-03-04-minimax/sketch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-03-04-minimaxsketch"><span class="">Minimax Sketch</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-teaching--2022-2023aidaily2022-05-03-mastermind-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-05-03-mastermind/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-teaching--2022-2023aidaily2022-05-03-mastermind"><span class="">Mastermind</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-teaching--2022-2023aidaily2022-05-03-mastermind01-mm-phase-i-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-05-03-mastermind/01-mm-phase-i/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-05-03-mastermind01-mm-phase-i"><span class="">MM Phase I</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-teaching--2022-2023aidaily2022-05-03-mastermind02-mm-phase-ii-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-05-03-mastermind/02-mm-phase-ii/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-05-03-mastermind02-mm-phase-ii"><span class="">MM Phase II</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-teaching--2022-2023aidaily2022-05-19-game2048-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-05-19-game2048/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-teaching--2022-2023aidaily2022-05-19-game2048"><span class="">Game of 2048</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-teaching--2022-2023aidaily2022-05-19-game204810-playable-li">
+  <a href="/teaching--2022-2023/ai/daily/2022-05-19-game2048/10-playable/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023aidaily2022-05-19-game204810-playable"><span class="">2048 Design</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-teaching--2022-2023airesources-li">
+  <a href="/teaching--2022-2023/ai/resources/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-teaching--2022-2023airesources"><span class="">AI Resources</span></a>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/maueroats/teaching--2022-2023/tree/main/www/content/en/ai/daily/2022-02-01/tinysteps.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/maueroats/teaching--2022-2023/edit/main/www/content/en/ai/daily/2022-02-01/tinysteps.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/maueroats/teaching--2022-2023/new/main/www/content/en/ai/daily/2022-02-01/tinysteps.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/maueroats/teaching--2022-2023/issues/new?title=Tiny%20Steps" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  
+</div>
+
+            
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            
+<div class="td-content">
+	<h1>Tiny Steps</h1>
+	<div class="lead">Little steps toward a solver.</div>
+	<div class="td-byline mb-4">
+		
+		<time datetime="2022-02-12" class="text-muted">Saturday, February 12, 2022</time>
+	</div>
+	<header class="article-meta">
+		
+
+  
+    
+
+
+  
+    
+
+
+  
+
+		
+	</header>
+	<p>(This is an experimental section to help people who are not able to
+make progress based on the original description and class discussion.)</p>
+<p>All questions depend on a given <code>SolverData</code> file being
+loaded. Everything happens with the information from that one
+<code>SolverData</code> object.</p>
+<ol>
+<li>
+<p>Given a single <code>SolverTrait</code>, return a list of all of the
+operations that add that trait when they run.</p>
+</li>
+<li>
+<p>Create a problem that involves only one prereq for each
+operation. The graph of states should look like this:</p>
+<pre><code> A -&gt; B -&gt; C -&gt; D -&gt; E -&gt; F -&gt; G
+</code></pre>
+<p>Operations are the arrow, so <code>mAB</code> has a prereq of A and adds B,
+subtracting A. Make the initial state B and the goal state E.</p>
+</li>
+<li>
+<p>Use your problem to write a function that takes in a list of
+operations, and puts out a list of the operations that you should
+use to get from the initial state to the goal state, in order.</p>
+</li>
+<li>
+<p>Test your function to make sure it still works with the initial
+state <code>{B, F}</code>.</p>
+</li>
+</ol>
+<!-- NEEDS WORK
+
+. (`achieve_all_nofail`) Given a `SolverState` (a set of traits),
+   find the operations you should do to achieve all of them. 
+
+    Assume that your goal can be accomplished and 
+   accomplish your final goal and that you make no "dead end" choices
+   that you have to back away from, write a recursive function to find
+   the operations to use.
+   
+        def achieve_nofail(goal, 
+-->
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a class="btn btn-primary disabled"><span class="mr-1">←</span>Previous</a>
+  </li>
+  <li>
+    <a href="/teaching--2022-2023/ai/daily/2022-02-01/datastruct/" aria-label="Next - Data Structures" class="btn btn-primary">Next<span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Racket Docs" aria-label="Racket Docs">
+    <a class="text-white" target="_blank" rel="noopener" href="https://docs.racket-lang.org/" aria-label="Racket Docs">
+      <i class="fab fa-galactic-republic"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Picturing Programs" aria-label="Picturing Programs">
+    <a class="text-white" target="_blank" rel="noopener" href="https://picturingprograms.com" aria-label="Picturing Programs">
+      <i class="fas fa-book"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Python 3 Docs" aria-label="Python 3 Docs">
+    <a class="text-white" target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/index.html" aria-label="Python 3 Docs">
+      <i class="fab fa-python"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Lean You a Haskell" aria-label="Lean You a Haskell">
+    <a class="text-white" target="_blank" rel="noopener" href="https://learnyouahaskell.com/" aria-label="Lean You a Haskell">
+      <i class="fas fa-brain"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2023 Andrew Mauer-Oats All Rights Reserved</small>
+        
+	
+		<p class="mt-2"><a href="/teaching--2022-2023/ml/about/">About this class</a></p>
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+  <script src="/teaching--2022-2023/js/main.min.c611349f2c809f189a1633b7978266169f170a2b7eab9a55c6cabae4dfd6b8d3.js" integrity="sha256-xhE0nyyAnxiaFjO3l4JmFp8XCit&#43;q5pVxsq65N/WuNM=" crossorigin="anonymous"></script>
+<script src='/teaching--2022-2023/js/tabpane-persist.js'></script>
+
+  </body>
+</html>

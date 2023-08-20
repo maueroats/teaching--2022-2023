@@ -1,0 +1,15 @@
+from collections import Counter
+from graph import Graph, add_random_edges
+
+def random_conn_1(n: int, e: int) -> int:
+    g = Graph(n)
+    add_random_edges(g, e)
+    return connected_components(g)
+
+def random_conn_2(reps: int) -> None:
+    counts = Counter([random_conn_1(100,120) for _ in range(reps)])
+    for k,v in sorted(counts.items()):
+        print(f"{k:5}{v:5}{int(100*v/reps):4}%")
+
+random_conn_2(1000)
+

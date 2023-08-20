@@ -1,0 +1,2135 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WY CS – WY CS</title>
+    <link>https://maueroats.github.io/teaching--2022-2023/</link>
+    <description>Recent content on WY CS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 08 Jun 2023 11:00:53 -0500</lastBuildDate>
+    
+	  <atom:link href="https://maueroats.github.io/teaching--2022-2023/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+      
+    
+    
+    <item>
+      <title>Ai: 2048 Design</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-05-19-game2048/10-playable/</link>
+      <pubDate>Thu, 19 May 2022 18:08:53 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-05-19-game2048/10-playable/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The first step is to make a playable game of 2048. This makes sure we
+have correctly implemented all of the internal logic.&lt;/p&gt;
+&lt;h2 id=&#34;representation&#34;&gt;Representation&lt;/h2&gt;
+&lt;p&gt;I suggest you use a list of 16 numbers: &lt;code&gt;[0]*16&lt;/code&gt; to start out.
+So that everyone in the class talks about the same repesentation,
+number the squares like this:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; 0  1  2  3
+ 4  5  6  7
+ 8  9 10 11
+12 13 14 15
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;rules&#34;&gt;Rules&lt;/h2&gt;
+&lt;p&gt;Make sure you know the rules of 2048. Write them down and make test
+cases that demonstrate that your program follows them. For example,
+what happens when you have a row &lt;code&gt;[2,2,4,4]&lt;/code&gt;? How about &lt;code&gt;[0,4,4,4]&lt;/code&gt;?
+Does it matter if you slide these examples left or right?&lt;/p&gt;
+&lt;h2 id=&#34;possible-class-design&#34;&gt;Possible Class Design&lt;/h2&gt;
+&lt;p&gt;A &lt;code&gt;Board2048&lt;/code&gt; class could have the following methods.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;An instance variable &lt;code&gt;self.board&lt;/code&gt; for the list of 16 numbers.&lt;/li&gt;
+&lt;li&gt;A constant &lt;code&gt;DIRECTIONS&lt;/code&gt; and definitions for numbers to represent
+&lt;code&gt;UP&lt;/code&gt;, &lt;code&gt;DOWN&lt;/code&gt;, &lt;code&gt;LEFT&lt;/code&gt;, and &lt;code&gt;RIGHT&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A method &lt;code&gt;slide(direction)&lt;/code&gt; to shift the board.&lt;/li&gt;
+&lt;li&gt;Helper methods &lt;code&gt;left()&lt;/code&gt;, &lt;code&gt;right()&lt;/code&gt;, &lt;code&gt;up()&lt;/code&gt;, &lt;code&gt;down()&lt;/code&gt; to let you work
+step by step on getting them all right.&lt;/li&gt;
+&lt;li&gt;An &lt;code&gt;empty_squares()&lt;/code&gt; method returning a list of all empty squares.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;legal_moves()&lt;/code&gt; method returning the directions in which the tiles
+can be slid.&lt;/li&gt;
+&lt;li&gt;Possibly a &lt;code&gt;spawn()&lt;/code&gt; method which returns a new object containing
+one additional, randomly placed, tile. The standard game is reported
+to produce a &amp;ldquo;2&amp;rdquo; tile 90% of the time, and a &amp;ldquo;4&amp;rdquo; tile 10% of the
+time. I make every empty square equally likely to contain the spawned tile.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;game_over()&lt;/code&gt; method is needed somewhere. A game can continue when
+either (i) there is an empty space; or (ii) two adjacent
+tiles have the same value.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: MM Phase I</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-05-03-mastermind/01-mm-phase-i/</link>
+      <pubDate>Tue, 03 May 2022 07:07:56 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-05-03-mastermind/01-mm-phase-i/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Make sure you know the &lt;a href=&#34;https://en.wikipedia.org/wiki/Mastermind_(board_game)&#34;&gt;rules of the game&lt;/a&gt;. You could &lt;a href=&#34;https://webgamesonline.com/mastermind/&#34;&gt;play
+online&lt;/a&gt; with one of several
+&lt;a href=&#34;https://www.archimedes-lab.org/mastermind.html&#34;&gt;Mastermind web
+sites&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;representation&#34;&gt;Representation&lt;/h2&gt;
+&lt;p&gt;There are two logical representations to use for your game state
+(code). In each, each of the six colored peg available for use in the
+code is represented by one of the numbers 1 through 6. For the
+computer&amp;rsquo;s use, 0 through 5 are marginally better.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;List of integers: [1,5,3,3]&lt;/li&gt;
+&lt;li&gt;Single integer, base ten: 1533&lt;/li&gt;
+&lt;li&gt;Single integer, base six: 0422. Note that in this representation it
+makes more sense to use digits 0 through 5 so every base six number
+0000 through 5555 represents a valid code.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I recommend the last method because its convenient for enumerating the
+possibilities easier and even storing results for every code.&lt;/p&gt;
+&lt;h2 id=&#34;phase-i-tasks&#34;&gt;Phase I Tasks&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Implement a scoring function. It should return a tuple (exact,
+approximate) with the number of &amp;ldquo;black pegs&amp;rdquo; and &amp;ldquo;white pegs&amp;rdquo; in the
+response to a guess.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  def score(secret: int, guess: int) -&amp;gt; (int, int);
+      pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Implement a &amp;ldquo;complete guesser&amp;rdquo; that works for binary codes (codes
+with only two colors). One way to do this is to use the first guess
+to determine how many black pegs are in the code, and then guess
+every possible combination with that many pegs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;In my &lt;code&gt;Solver&lt;/code&gt; class, I use the following interface:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Constructor: input is how many slots and how many colors are being
+used. (In a standard game, these are 4 and 6, respectively.) In the
+constructor I create an instance variable containing every possible
+configuration.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;generate_guess() -&amp;gt; int&lt;/code&gt;: Return the next code to guess.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;register_feedback(guess: int, exact: int, approximate: int)&lt;/code&gt;:
+Inform the solver how many were exactly and approximately
+correct. Updates the internal state of the solver so that this
+information will be used on the next guess.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: MM Phase II</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-05-03-mastermind/02-mm-phase-ii/</link>
+      <pubDate>Tue, 03 May 2022 07:21:02 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-05-03-mastermind/02-mm-phase-ii/</guid>
+      <description>
+        
+        
+        &lt;p&gt;In this phase we implement the strategy from Knuth&amp;rsquo;s 1977 paper &amp;ldquo;The
+Computer as Master Mind&amp;rdquo; (J. Recreational Mathematics, Vol 9(1),
+1976-77).&lt;/p&gt;
+&lt;p&gt;This strategy is to choose a guess that minimizes the &amp;ldquo;worst case&amp;rdquo;
+outcome. Since a lot of people have questions about how this strategy
+works, his page will include a lot of details.&lt;/p&gt;
+&lt;h2 id=&#34;step-1-score-a-single-guess&#34;&gt;Step 1: Score a single guess&lt;/h2&gt;
+&lt;p&gt;Your solver should remember all of the possibilities for the secret
+code based on the information gathered so far. To score a guess:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Find out the number of exact and approximate matches for &lt;em&gt;each&lt;/em&gt;
+possible secret.&lt;/li&gt;
+&lt;li&gt;Total the number of each type of response that occurs. The maximum
+of these numbers is the score for the guess.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step-2-choose-a-guess&#34;&gt;Step 2: Choose a guess&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Score all possible guesses.&lt;/li&gt;
+&lt;li&gt;Select a guess that gives the smallest maximum score. (This is why
+this method is considered a &amp;ldquo;minimax&amp;rdquo; approach.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step-3-update-the-possible-secrets&#34;&gt;Step 3: Update the possible secrets&lt;/h2&gt;
+&lt;p&gt;Get feedback and reduce the set of all possible guesses to only those
+codes that would give the same feedback that you received.&lt;/p&gt;
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+&lt;p&gt;Suppose that you have narrowed down the search space so that the
+possible codewords are 1123, 3151, 1141, and 6544.&lt;/p&gt;
+&lt;p&gt;Step 1 gives you the ability to score a single guess, like 4113,
+giving (exact,approximate) matches of (2,1), (1,2), (1,2) and (0,0)
+respectively. The worst case scenario would be a response of (1,2),
+which happens with 2 of the codewords. Score 4113 as two points
+because the maximum number of codewords it can leave in the search
+space is two.&lt;/p&gt;
+&lt;p&gt;In Step 2, you repeat this process for every possible guess and pick
+one of the ones with the minimum &amp;ldquo;worst case scenario&amp;rdquo; response.&lt;/p&gt;
+&lt;p&gt;In Step 3, suppose that the guess is 4113 and the response is
+(1,2). The program should go through all of the possibilities and
+eliminate all of those which would not give the response of (1,2) when
+scored against 4113. That would leave 3151 and 1141 as possibilities.&lt;/p&gt;
+&lt;h2 id=&#34;faq&#34;&gt;FAQ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Q: Why does Knuth&amp;rsquo;s algorithm start with 1122?&lt;/p&gt;
+&lt;p&gt;A: You should not focus on this starting point. It is a consequence
+of having checked all of the possible starting guesses using the
+same system that you use to make all of the other guesses.&lt;/p&gt;
+&lt;p&gt;When you change the number of colors or the number of locations, a
+guess with all 1s and 2s is not necessarily optimal anymore.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: Minimax Sketch</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-03-04-minimax/sketch/</link>
+      <pubDate>Fri, 04 Mar 2022 07:55:01 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-03-04-minimax/sketch/</guid>
+      <description>
+        
+        
+        &lt;p&gt;You are with &amp;ldquo;tic-tac-dum&amp;rdquo;: two players try to get 3 marks in a row on
+a one-dimensional board.&lt;/p&gt;
+&lt;p&gt;Board: an array of integers.&lt;/p&gt;
+&lt;p&gt;Legal moves are any unoccupied square.&lt;/p&gt;
+&lt;h2 id=&#34;move&#34;&gt;Move&lt;/h2&gt;
+&lt;p&gt;A &lt;code&gt;Move&lt;/code&gt; is a player and a position.&lt;/p&gt;
+&lt;h2 id=&#34;game-state&#34;&gt;Game State&lt;/h2&gt;
+&lt;p&gt;A &lt;code&gt;GameState&lt;/code&gt; contains:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Board&lt;/li&gt;
+&lt;li&gt;Current player&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Remember to make a &lt;em&gt;copy&lt;/em&gt; of the game state every time you want to
+change it; do not modify it.&lt;/p&gt;
+&lt;p&gt;Method: &lt;code&gt;play(self, move)&lt;/code&gt; returns a new, modified game state.&lt;/p&gt;
+&lt;h2 id=&#34;scoring-system&#34;&gt;Scoring system&lt;/h2&gt;
+&lt;p&gt;This has been simplified since our class discussion.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;One piece that could become three in a row (so two empty spaces)
+somewhere around it: 10 points&lt;/li&gt;
+&lt;li&gt;Two pieces that could become three in a row: 100 points.&lt;/li&gt;
+&lt;li&gt;Three pieces in a row: 9999 points.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Write and test the scoring system.&lt;/p&gt;
+&lt;h2 id=&#34;move-selection&#34;&gt;Move Selection&lt;/h2&gt;
+&lt;p&gt;The key function to write is &lt;code&gt;best_score_move&lt;/code&gt;, which returns a tuple
+containing the score and the move that it recommends given a game
+state and a depth to search.&lt;/p&gt;
+&lt;p&gt;This is the signature of the function I used:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;def best_score_move(g: GameState, depth: int = 1) -&amp;gt; Tuple[int, Move]:
+	pass
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;testing-setup&#34;&gt;Testing Setup&lt;/h2&gt;
+&lt;p&gt;This is a piece of my tester code. Your setup can be different.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;unittest&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;MachineTester&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;unittest&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;TestCase&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;test_scoring_2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#3465a4&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#000&#34;&gt;game&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;GameState&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;([&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;99&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;99&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;],&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#000&#34;&gt;ans&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;score&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;game&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#000&#34;&gt;correct&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#3465a4&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;assertEqual&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;correct&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ans&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;SCORE 2: Fully score |X__X|&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: Data Structures</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-02-01/datastruct/</link>
+      <pubDate>Wed, 02 Feb 2022 10:45:47 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-02-01/datastruct/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;Show me your flowcharts and conceal your tables, and I shall
+continue to be mystified. Show me your tables, and I won’t usually
+won’t usually need your flowcharts; they’ll be obvious.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fred Brooks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;traits&#34;&gt;Traits&lt;/h3&gt;
+&lt;p&gt;Strings representing particular parts of the state. Wrapped in the
+class &lt;code&gt;SolverTrait&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt;: String&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;operations&#34;&gt;Operations&lt;/h3&gt;
+&lt;p&gt;Holds the name of the action, preconditions required to apply it, and
+sets of traits that are added or removed when the action is performed.&lt;/p&gt;
+&lt;p&gt;Wrapped in &lt;code&gt;SolverOp&lt;/code&gt; class.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt;: String&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;precond&lt;/code&gt;: Set of &lt;code&gt;SolverTrait&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;add&lt;/code&gt;: Set of &lt;code&gt;SolverTrait&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;remove&lt;/code&gt;: Set of &lt;code&gt;SolverTrait&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;solverdata&#34;&gt;SolverData&lt;/h3&gt;
+&lt;p&gt;All of the data given in a problem. Used to drive the solver.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;title&lt;/code&gt;: String&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;traits&lt;/code&gt;: Set of &lt;code&gt;SolverTrait&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initial_state&lt;/code&gt;: Set of &lt;code&gt;SolverTrait&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;goal_state&lt;/code&gt;: Set of &lt;code&gt;SolverTrait&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ops&lt;/code&gt;: List of &lt;code&gt;SolverOp&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Also available:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;trait_set&lt;/code&gt;: list of string -&amp;gt; list of SolverTrait. Error if it
+encounters a string that is not listed in the traits.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;operation_lookup&lt;/code&gt;: a dictionary with key being a the name of an
+operation and value being the corresponding SolverOp. This is not a
+function, so you use it with brackets. Example: &lt;code&gt;lookup[&amp;quot;put on shirt&amp;quot;]&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dump()&lt;/code&gt;: Return a string representation in TOML format.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;check-for-understanding&#34;&gt;Check for Understanding&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Create your own file &lt;code&gt;shirtdemo.toml&lt;/code&gt;. It should include traits for
+shirt colors red, orange, yellow, green, blue, as well as operations
+for putting on each shirt. Add one extra trait called &amp;ldquo;seaswim&amp;rdquo;
+which you can get by wearing a blue shirt and using the &amp;ldquo;get wet&amp;rdquo;
+operation. Your initial state is [&amp;ldquo;pants on&amp;rdquo;]. Your goal state is
+[&amp;ldquo;pants on&amp;rdquo;,&amp;ldquo;blue shirt&amp;rdquo;, &amp;ldquo;seaswim&amp;rdquo;].&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Read in the file and make a &lt;code&gt;SolverDemo&lt;/code&gt; object called &lt;code&gt;shirtdemo&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Begin with &lt;code&gt;y = SolverTrait(&#39;yellow&#39;)&lt;/code&gt; and do a linear search the
+set of traits of &lt;code&gt;shirtdemo&lt;/code&gt; to find &lt;code&gt;y&lt;/code&gt;. Print how many comparisons you make
+before you find &lt;code&gt;y&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Find the operation that adds a blue shirt.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Apply the operation to your initial state.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Find the &amp;ldquo;get wet&amp;rdquo; operation and apply it to your current state.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Print out the name of every trait in the current state.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: Kruskal Algorithm</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-14/kruskal-algo/</link>
+      <pubDate>Tue, 14 Dec 2021 10:12:01 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-14/kruskal-algo/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Make a minimal spanning tree by adding the smallest weight edge that
+connects two previously unconnected vertices. Count two vertices as
+connected if there is any &lt;em&gt;path&lt;/em&gt; between them (not just a single
+edge).&lt;/p&gt;
+&lt;h3 id=&#34;code-outline&#34;&gt;Code Outline&lt;/h3&gt;
+&lt;!-- Preprocessing: sort all edges by weight. --&gt;
+&lt;p&gt;We will produce a new Graph containing only the edges we select for
+the minimal spanning tree.&lt;/p&gt;
+&lt;p&gt;Consider each edge in the original graph, from the least weight to the
+greatest. Add the edge &lt;code&gt;(a,b)&lt;/code&gt; to your output graph if there is
+currently no path from &lt;code&gt;a&lt;/code&gt; to &lt;code&gt;b&lt;/code&gt; in that graph.&lt;/p&gt;
+&lt;p&gt;Needed: a way to determine if there is a path from vertex &lt;code&gt;a&lt;/code&gt; to
+vertex &lt;code&gt;b&lt;/code&gt; in the output graph.&lt;/p&gt;
+&lt;h3 id=&#34;method-1-search-every-time&#34;&gt;Method 1: search every time&lt;/h3&gt;
+&lt;p&gt;Determine if there is a path from &lt;code&gt;a&lt;/code&gt; to &lt;code&gt;b&lt;/code&gt; using only edges in the
+&lt;code&gt;allowed&lt;/code&gt; set. This could be a modification of the &lt;a href=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-10-08/&#34;&gt;shortest
+distances&lt;/a&gt;
+function or you can write it from scratch.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def reachable(g_out: Graph, a: Vertex, b: Vertex) -&amp;gt; bool:
+    return false  # write this
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;method-2-lookup-table-of-components&#34;&gt;Method 2: lookup table of components&lt;/h3&gt;
+&lt;p&gt;Modify your
+&lt;a href=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-10-19/&#34;&gt;&lt;code&gt;connected_components&lt;/code&gt;&lt;/a&gt; function so that
+it numbers the components it discovers. It then produces a map from
+vertices to the component number.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def component_dict(g: Graph) -&amp;gt; Dict[Vertex, int]:
+    return {}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This method can be better than the previous one if you need to check
+many edges before you find one to add to your output edge set. It is
+also the basis for a more efficient idea.&lt;/p&gt;
+&lt;h3 id=&#34;method-3-use-a-special-data-structure&#34;&gt;Method 3: use a special data structure&lt;/h3&gt;
+&lt;p&gt;Like method 2 but don&amp;rsquo;t re-create the dictionary every time.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: Tiny Steps</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-02-01/tinysteps/</link>
+      <pubDate>Sat, 12 Feb 2022 22:02:19 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-02-01/tinysteps/</guid>
+      <description>
+        
+        
+        &lt;p&gt;(This is an experimental section to help people who are not able to
+make progress based on the original description and class discussion.)&lt;/p&gt;
+&lt;p&gt;All questions depend on a given &lt;code&gt;SolverData&lt;/code&gt; file being
+loaded. Everything happens with the information from that one
+&lt;code&gt;SolverData&lt;/code&gt; object.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Given a single &lt;code&gt;SolverTrait&lt;/code&gt;, return a list of all of the
+operations that add that trait when they run.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a problem that involves only one prereq for each
+operation. The graph of states should look like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; A -&amp;gt; B -&amp;gt; C -&amp;gt; D -&amp;gt; E -&amp;gt; F -&amp;gt; G
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Operations are the arrow, so &lt;code&gt;mAB&lt;/code&gt; has a prereq of A and adds B,
+subtracting A. Make the initial state B and the goal state E.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use your problem to write a function that takes in a list of
+operations, and puts out a list of the operations that you should
+use to get from the initial state to the goal state, in order.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test your function to make sure it still works with the initial
+state &lt;code&gt;{B, F}&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- NEEDS WORK
+
+. (`achieve_all_nofail`) Given a `SolverState` (a set of traits),
+   find the operations you should do to achieve all of them. 
+
+    Assume that your goal can be accomplished and 
+   accomplish your final goal and that you make no &#34;dead end&#34; choices
+   that you have to back away from, write a recursive function to find
+   the operations to use.
+   
+        def achieve_nofail(goal, 
+--&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: Kruskal Guide</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-14/kruskal-guide/</link>
+      <pubDate>Tue, 14 Dec 2021 10:12:57 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-14/kruskal-guide/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;common-pitfalls&#34;&gt;Common pitfalls&lt;/h2&gt;
+&lt;h3 id=&#34;a-visited-set-is-not-enough&#34;&gt;A visited set is not enough&lt;/h3&gt;
+&lt;p&gt;Far and away the most common pitfall in implementing Kruskal&amp;rsquo;s
+algorithm is believing that a &amp;ldquo;visited&amp;rdquo; set can help you figure out
+whether or not to use an edge.&lt;/p&gt;
+&lt;p&gt;Make sure your implementation can
+correctly handle the situation shown below, where the two lowest
+weight edges have been chosen but there are still two components that
+need to be connected to make the spanning tree.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;kruskal-visited-problem.png&#34; width=&#34;20%&#34;/&gt; 
+&lt;/figure&gt;
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A heap can be used, but it is neither needed nor beneficial. A
+heap&amp;rsquo;s strength is keeping track of the smallest weight element as
+you add and remove elements. Kruskal&amp;rsquo;s algorithm never adds more
+available edges, so that strength is never used.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: Design Process</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/design-process/</link>
+      <pubDate>Fri, 15 Oct 2021 11:00:34 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/design-process/</guid>
+      <description>
+        
+        
+        &lt;ol&gt;
+&lt;li&gt;Show you understand the problem.&lt;/li&gt;
+&lt;li&gt;Write using a fast feedback process.&lt;/li&gt;
+&lt;li&gt;Demonstrate your code works.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;understand-the-problem&#34;&gt;Understand the problem&lt;/h2&gt;
+&lt;p&gt;Examples that you have worked out show that you understand the
+problem. Pick two examples and show:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What information is input to the function?&lt;/li&gt;
+&lt;li&gt;What is the output from the function?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If the problem involves a &lt;em&gt;process&lt;/em&gt;, you should demonstrate the
+process working in some step-by-step manner.&lt;/p&gt;
+&lt;h2 id=&#34;fast-feedback&#34;&gt;Fast feedback&lt;/h2&gt;
+&lt;p&gt;One of the biggest problems beginner face is they hold incorrect
+beliefs about what the computer does at some point. Several steps
+later, the unexpected output causes an error. Confusion ensues.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Write code that runs immediately, not functions.&lt;/li&gt;
+&lt;li&gt;Use variables to hold every result along the way.&lt;/li&gt;
+&lt;li&gt;Print out each result to make sure you know what happens!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;step1&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;file&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;readline&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;step2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;step1&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;strip&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;split&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;print&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;step2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;step2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;NVERT&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;step3&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;step2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;else&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;step3&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;print&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;step3&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When you have a working example, then change it into a function. Not
+before!&lt;/p&gt;
+&lt;h2 id=&#34;demonstrate-code-works&#34;&gt;Demonstrate code works&lt;/h2&gt;
+&lt;p&gt;Complex code that has not been tested does not work.
+Bugs are a fact of life.
+You must perform some testing of your code to demonstrate that it
+functions the way you want.
+Using the example that you used to show you understood the problem is
+fine.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;unittest&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;DemoTest&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;unittest&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;TestCase&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;test_addition&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#3465a4&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#3465a4&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;assertEqual&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#000&#34;&gt;unittest&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-08</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-08/</link>
+      <pubDate>Wed, 08 Sep 2021 07:04:51 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-08/</guid>
+      <description>
+        
+        
+        &lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;A list of the first 1000 integers.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A list of the first 1000 perfect squares.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The sum of the first 100 perfect cubes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A list of all of the perfect cubes between 1000 and 20000.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The product of the numbers in the previous list, computed using a for loop.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Compute &lt;code&gt;sin(pi/12)&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Find the greatest common divisor of 1558853167347433739 and
+10062552685783700385249011.&lt;/p&gt;
+&lt;!-- 2454079157171 --&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The last 20 characters of the string &lt;code&gt;&amp;quot;A dolphin likes the water. A snake slithers in the sand.&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;What is the difference between &lt;code&gt;5**3&lt;/code&gt;, &lt;code&gt;5^3&lt;/code&gt;, and &lt;code&gt;math.pow(5,3)&lt;/code&gt;?
+Ask about &lt;code&gt;5^3&lt;/code&gt; if it is hard to understand.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Print this part of a &lt;a href=&#34;https://www.poetryfoundation.org/poetrymagazine/poems/49493/i-carry-your-heart-with-mei-carry-it-in&#34;&gt;poem&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;i carry your heart with me(i carry it in
+my heart)i am never without it(anywhere
+i go you go,my dear;and whatever is done
+by only me is your doing,my darling)
+                                                      i fear
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;alternative&#34;&gt;Alternative&lt;/h2&gt;
+&lt;p&gt;USACO &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=856&#34;&gt;milkmix&lt;/a&gt;
+problem: 2018 December Bronze 1.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-10</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-10/</link>
+      <pubDate>Fri, 10 Sep 2021 06:56:22 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-10/</guid>
+      <description>
+        
+        
+        &lt;script&gt;
+MathJax = {
+ tex: {
+  inlineMath: [[&#39;$&#39;,&#39;$&#39;], [&#39;\\(&#39;,&#39;\\)&#39;]],
+  displayMath: [[&#39;$$&#39;,&#39;$$&#39;], [&#39;\\[&#39;,&#39;\\]&#39;]]
+ },
+    svg: {
+        fontCache: &#39;global&#39;
+    }
+};
+&lt;/script&gt;
+&lt;script src=&#34;https://polyfill.io/v3/polyfill.min.js?features=es6&#34;&gt;&lt;/script&gt;
+&lt;script id=&#34;MathJax-script&#34; async src=&#34;https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js&#34;&gt;&lt;/script&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;A list of the first 20 &lt;a href=&#34;https://en.wikipedia.org/wiki/Fibonacci_number?wprov=srpw1_0&#34;&gt;Fibonacci numbers&lt;/a&gt;. So $[1,1,2,3,5,\ldots]$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A list with the &lt;a href=&#34;https://sigmatricks.com/partial-sum/&#34;&gt;partial sums&lt;/a&gt; of the first 20 perfect fourth powers.
+So $[1^4, 1^4+2^4, 1^4+2^4+3^4, &amp;hellip;]$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write a function &lt;code&gt;some_words&lt;/code&gt; that takes in a list of strings
+&lt;code&gt;someWords&lt;/code&gt; and outputs a list of the strings in &lt;code&gt;someWords&lt;/code&gt; that
+come after &amp;ldquo;grapefruit&amp;rdquo; in the dictionary and have at least 5
+letters.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; someWords [&amp;quot;apple&amp;quot;,&amp;quot;mango&amp;quot;,&amp;quot;papaya&amp;quot;,&amp;quot;blueberry&amp;quot;,&amp;quot;juju&amp;quot;] == [&amp;quot;mango&amp;quot;,&amp;quot;papaya&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(Function: &lt;code&gt;q4&lt;/code&gt;) Ask the person to type a number, use
+&lt;code&gt;input()&lt;/code&gt;. Print 20 times that number.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(Function: &lt;code&gt;numpair&lt;/code&gt;) Given a string containing some integers
+separated by spaces, output a list of pairs (number, position),
+where position is the index of the number in the list - counting
+from zero.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; numpair &amp;quot;10 50 30 70&amp;quot; == [(10,0), (50,1), (30,2), (70,3)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(Function: &lt;code&gt;largeRem&lt;/code&gt;) Given two integers, output the one with the
+largest remainder when divided by 1397.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; largeRem 2000 2800 == 2000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(Function: &lt;code&gt;myConcat&lt;/code&gt;) Given two lists, return the list made by
+joining all of the items from each, in order.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; myConcat [3,1,2] [50,60,70,80] == [3,1,2,50,60,70,80]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(Function: &lt;code&gt;lastPrint&lt;/code&gt;) Given a list of positive integers, modify the list
+by repeatedly removing the last item and printing it. Stop after
+you hit a four digit integer. Return the modified list.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make a
+&lt;a href=&#34;https://docs.python.org/3/library/collections.html#collections.deque&#34;&gt;deque&lt;/a&gt;
+with 10000 random integers in the range [-500,800]. Remove numbers
+from the start of the list stopping after you hit a number
+above 700. Add in 1000 more random numbers at the start.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a list containing all of the Pythagorean triples $(a,b,c)$
+with $a&amp;lt;100$ and $b&amp;lt;100$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Remove the duplicates from your list, so you end up with $a &amp;lt; b
+&amp;lt; c$. Sort them based on $a$ and then $b$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;alternative&#34;&gt;Alternative&lt;/h2&gt;
+&lt;p&gt;USACO &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=856&#34;&gt;bucket
+list&lt;/a&gt; problem:
+2018 December Bronze 2.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-14</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-14/</link>
+      <pubDate>Fri, 10 Sep 2021 10:00:43 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-14/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;ongoing-topics&#34;&gt;Ongoing topics&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Print vs return&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/11205254/why-dont-list-operations-return-the-resulting-list&#34;&gt;Mutation functions do not return
+values&lt;/a&gt;.
+Also: &lt;a href=&#34;https://stackoverflow.com/questions/16641119/why-does-append-always-return-none-in-python&#34;&gt;Why does append return None?&lt;/a&gt; Examples:
+append, extend. The &lt;a href=&#34;https://mail.python.org/pipermail/python-dev/2003-October/038855.html&#34;&gt;Python boss post on the
+topic&lt;/a&gt;
+is short and informative.&lt;/li&gt;
+&lt;li&gt;Copy vs in-place: &lt;code&gt;sorted(data)&lt;/code&gt; vs &lt;code&gt;data.sort()&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;upcoming&#34;&gt;Upcoming&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Changing the collecting while you iterate through it (copy instead)&lt;/li&gt;
+&lt;li&gt;Using &lt;code&gt;unittest&lt;/code&gt; to write &amp;ldquo;check-expects&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;questions&#34;&gt;Questions&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Make a list of ten foods (&lt;code&gt;allFoods&lt;/code&gt;). Make your own function
+&lt;code&gt;someRand(data, N)&lt;/code&gt; to randomly select N items from a given list
+with replacement.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Randomly select 20 items from the list (with replacement) and use
+that as &lt;code&gt;foodList&lt;/code&gt; for the next problems.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make a list of ordered pairs (food, number of that food in
+&lt;code&gt;foodList&lt;/code&gt;) so that every possible food appears once.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a dictionary &lt;code&gt;foodCount&lt;/code&gt; with the same information as
+the previous problem. That is &lt;code&gt;foodCount[food]&lt;/code&gt; is the number of that
+food in &lt;code&gt;foodList&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a function &lt;code&gt;randomCap&lt;/code&gt; that takes in a string and puts out
+a string with a random capitalization, one of three cases:
+&lt;code&gt;lower()&lt;/code&gt;, &lt;code&gt;upper()&lt;/code&gt; and &lt;code&gt;title()&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use your function to make a new variable &lt;code&gt;foodListCaps&lt;/code&gt; by applying
+&lt;code&gt;randomCap&lt;/code&gt; to &lt;code&gt;foodList&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sort &lt;code&gt;foodListCaps&lt;/code&gt; and print it out.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sort it again, but in a way that ignores the case of the
+letters. Print that out too.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write a function &lt;code&gt;del37&lt;/code&gt; that deletes the items in indices 3
+through 7 from a given input list. Verify that it works:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; squares20 = [ x*x for x in range(15) ]
+ del37(squares20)
+ print(squares20)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make a
+&lt;a href=&#34;https://docs.python.org/3/tutorial/datastructures.html#sets&#34;&gt;set&lt;/a&gt;
+containing every food in &lt;code&gt;foodList&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write a function that takes in a string and returns a set of all
+of the non-vowels in the string. Test it on your name.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;problems&#34;&gt;Problems&lt;/h2&gt;
+&lt;p&gt;Everyone does the first one. If you want to skip the questions above,
+do the second one.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;USACO 2019 January Bronze 1: &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=891&#34;&gt;shell game&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;USACO 2018 December Bronze 3: &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=857&#34;&gt;back and forth&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-15</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-15/</link>
+      <pubDate>Wed, 15 Sep 2021 09:03:46 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-15/</guid>
+      <description>
+        
+        
+        &lt;p&gt;&lt;a href=&#34;https://wy-cs.info/ap-cs/haskell/ch02/quiz-1/&#34;&gt;Quiz&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Homework:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;USACO 2019 January Bronze 2: &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=892&#34;&gt;sleepy
+sorting&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-17</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-17/</link>
+      <pubDate>Fri, 17 Sep 2021 07:06:32 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-17/</guid>
+      <description>
+        
+        
+        &lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;(&lt;code&gt;overlap&lt;/code&gt;) Given two lists of numbers, produce a sorted list of elements
+common to both of them.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; overlap [10, 20, 17, 30, 15, 18] [18, 30, 5, 17, 21, 90] == [17, 18, 30]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn the following table into a dictionary called &lt;code&gt;q2&lt;/code&gt;:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Combo&lt;/th&gt;
+&lt;th&gt;Effectiveness&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;(&amp;lsquo;Fire&amp;rsquo;,&amp;lsquo;Fire&amp;rsquo;)&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(&amp;lsquo;Fire&amp;rsquo;,&amp;lsquo;Water&amp;rsquo;)&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(&amp;lsquo;Fire&amp;rsquo;,&amp;lsquo;Grass&amp;rsquo;)&lt;/td&gt;
+&lt;td&gt;2.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(&amp;lsquo;Grass&amp;rsquo;,&amp;lsquo;Fire&amp;rsquo;)&lt;/td&gt;
+&lt;td&gt;0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(&amp;lsquo;Ground&amp;rsquo;,&amp;lsquo;Fly&amp;rsquo;)&lt;/td&gt;
+&lt;td&gt;0.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;The rules changed, fire types have normal effectiveness against
+each other. Remove the &lt;code&gt;(&#39;Fire&#39;,&#39;Fire&#39;)&lt;/code&gt; entry from the &lt;code&gt;q2&lt;/code&gt; table.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use &lt;code&gt;items()&lt;/code&gt; to print the table using the data from &lt;code&gt;q2&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make a list of 8 foods. Use &lt;code&gt;enumerate&lt;/code&gt; to print out a the foods in
+order with one more &amp;ldquo;.&amp;rdquo; in front of each food. Small example output:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; apple
+ .orange
+ ..banana
+ ...grape
+ ....pineapple
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(&lt;code&gt;countWords&lt;/code&gt;) Write a function that counts the occurences of
+each word in the input string. It produces
+a dictionary where the keys are the words and the values are the
+counts.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(&lt;code&gt;sort2&lt;/code&gt;) Given a list of ordered pairs (x,y), sort them in
+descending order based on the second coordinate (y).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;problems&#34;&gt;Problems&lt;/h2&gt;
+&lt;p&gt;Everyone does the first one. If you want to skip the questions above,
+do the second one.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;USACO 2019 January Bronze 2: &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=892&#34;&gt;sleepy cow sorting&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;USACO 2019 January Bronze 3: &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=893&#34;&gt;guess the animal&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-21</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-21/</link>
+      <pubDate>Fri, 17 Sep 2021 10:37:27 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-21/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;reading&#34;&gt;Reading&lt;/h2&gt;
+&lt;p&gt;You need to convert strings to numbers with the &lt;code&gt;int&lt;/code&gt; function.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Read a single number: &lt;code&gt;int(input())&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Read a list of numbers: &lt;code&gt;[int(n) for n in input().split()]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If different items in the list have different meanings, it can be
+useful to give them all variable names in the assignment:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[a,b,g] = [int(n) for n in input().split()]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;files&#34;&gt;Files&lt;/h2&gt;
+&lt;p&gt;The second argument of the &lt;code&gt;open&lt;/code&gt; controls whether the file is
+&lt;strong&gt;r&lt;/strong&gt;ead or &lt;strong&gt;w&lt;/strong&gt;ritten. There are other modes but they are not useful
+in the kinds of work we will be doing.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open for reading: &lt;code&gt;infile = open(&amp;quot;filename.in&amp;quot;,&amp;quot;r&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Open for writing: &lt;code&gt;outfile = open(&amp;quot;filename.out&amp;quot;,&amp;quot;w&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Close when done: &lt;code&gt;outfile.close()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Standard I/O&lt;/th&gt;
+&lt;th&gt;File I/O&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;input()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;infile.readline()&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;print()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;print(..., file=outfile)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;outfile.close()&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;recommended-approach-trick&#34;&gt;Recommended Approach (Trick)&lt;/h2&gt;
+&lt;p&gt;The standard approach to a USACO contest problem is to use files as
+explained above. There is a trick you can use to make very few changes
+to use files.&lt;/p&gt;
+&lt;p&gt;Get your program working using &lt;code&gt;print&lt;/code&gt; and &lt;code&gt;input&lt;/code&gt;. When you are
+satisfied it works, swap the default input and output so they go to
+files.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import sys
+sys.stdin = open(&amp;quot;usaco.in&amp;quot;, &amp;quot;r&amp;quot;)
+sys.stdout = open(&amp;quot;usaco.out&amp;quot;, &amp;quot;w&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You may need to add &lt;code&gt;sys.stdout.flush()&lt;/code&gt; at the end of your program if
+output does not show up in the file.&lt;/p&gt;
+&lt;h2 id=&#34;practice&#34;&gt;Practice&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;USACO 2019 February Bronze 1 and 2 (revegetation).&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-23</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-23/</link>
+      <pubDate>Thu, 23 Sep 2021 07:12:54 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-23/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;upcoming&#34;&gt;Upcoming&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Next week: Object oriented programming in Python.&lt;/li&gt;
+&lt;li&gt;Tomorrow: Quiz on Python.&lt;/li&gt;
+&lt;li&gt;Soon: searching and backtracking&lt;/li&gt;
+&lt;li&gt;Week 6: graph theory.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;skill-of-the-day&#34;&gt;Skill of the day&lt;/h2&gt;
+&lt;p&gt;Python&amp;rsquo;s f-strings give a quick and easy way to create a
+string. Example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;predator = &#39;snake&#39;
+prey = &#39;mouse&#39;
+print(f&#39;The {predator} ate the {prey}.&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Read &lt;a href=&#34;https://docs.python.org/3/tutorial/inputoutput.html&#34;&gt;Chapter 7. Input and
+Output&lt;/a&gt; in the
+Python Tutorial.&lt;/p&gt;
+&lt;h2 id=&#34;maze-explanation&#34;&gt;Maze Explanation&lt;/h2&gt;
+&lt;p&gt;The squares in a maze are numbered 0, 1, 2 &amp;hellip;, N. In the maze below,
+there is a path from zero to eight: 0 - 3 - 6 - 7 - 8. The square 5
+does not directly connect to 2 or 8, only to 4.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;0 -- 1 -- 2
+|    |
+3    4 -- 5
+|
+6 -- 7 -- 8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will actually represent the maze in text by giving the number of a
+a vertex followed by all of the vertices with higher numbers that it
+connects to.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;9
+0 1 3
+1 2 4
+2 
+3 6
+4 5
+5 
+6 7
+7 8
+8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Internally, the computer should represent the maze as a dictionary
+whose keys are integers (the number of the square) and whose values
+are lists (all of the squares reachable from the key square).&lt;/p&gt;
+&lt;p&gt;The complete dictionary representing the maze above looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{ 0: [1,3], 
+  1: [0,2,4], 
+  2: [1], 
+  3: [0,6],
+  4: [1,5],
+  5: [4],
+  6: [3,7],
+  7: [6,8],
+  8: [7] }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;maze-functions&#34;&gt;Maze Functions&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;(&lt;code&gt;readMaze&lt;/code&gt;) Input a file containing all of the lines in
+the maze file (in the format above) and output the maze
+dictionary.&lt;/li&gt;
+&lt;li&gt;(&lt;code&gt;strMaze&lt;/code&gt;) Input a maze dictionary and output a string containing
+the lines of the maze file.&lt;/li&gt;
+&lt;li&gt;(&lt;code&gt;beautifulMaze&lt;/code&gt;) &lt;strong&gt;Bonus.&lt;/strong&gt; Input a maze dictionary for a square maze and
+output a string containing the maze as shown in the first
+character-drawn maze above.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;problem-solving&#34;&gt;Problem Solving&lt;/h2&gt;
+&lt;p&gt;USACO 2019 February Bronze 3 (&lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=917&#34;&gt;measuring
+traffic&lt;/a&gt;).&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-28</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-28/</link>
+      <pubDate>Tue, 28 Sep 2021 07:16:15 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-28/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Reading: &lt;a href=&#34;https://docs.python.org/3/tutorial/classes.html&#34;&gt;classes in
+Python&lt;/a&gt;. An introduction
+to object-oriented programming in Python.&lt;/p&gt;
+&lt;p&gt;Section 9.2 is esoteric, you should skip it on the first reading.&lt;/p&gt;
+&lt;p&gt;Section 9.3 is important.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Translate into Python: &lt;a href=&#34;https://maueroats.github.io/teaching--2022-2023/ap-cs/jm/ch11/candy/&#34;&gt;Candy class&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Translate into Python: &lt;a href=&#34;https://maueroats.github.io/teaching--2022-2023/ap-cs/jm/ch11/inheritance-1/&#34;&gt;Animals&lt;/a&gt;: Borzoi etc. Feel free to take some
+liberties with the specification.&lt;/li&gt;
+&lt;li&gt;USACO Bronze: &lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=939&#34;&gt;bucket brigade&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;concepts&#34;&gt;Concepts&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The constructor: &lt;code&gt;__init__&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Explictly using functions from a superclass: &lt;code&gt;super()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Control how a class prints out like Java&amp;rsquo;s &lt;code&gt;toString()&lt;/code&gt; method: &lt;code&gt;__str__&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;additional-advanced-reading&#34;&gt;Additional Advanced Reading&lt;/h2&gt;
+&lt;p&gt;This is purely for your own elightenment. These readings will never be
+used in class. Python is not like Java. In Python, a class is allowed
+to inherit from more than one superclass.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python docs about &lt;a href=&#34;https://docs.python.org/3/tutorial/classes.html#multiple-inheritance&#34;&gt;multiple
+inheritance&lt;/a&gt; -
+brief!&lt;/li&gt;
+&lt;li&gt;OK reading &lt;a href=&#34;https://realpython.com/lessons/multiple-inheritance-python/&#34;&gt;writing about
+multiple inheritance&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Class
+&lt;a href=&#34;https://stackoverflow.com/questions/533631/what-is-a-mixin-and-why-are-they-useful&#34;&gt;mixins&lt;/a&gt;
+are one example of using multiple inheritance.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-29</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-29/</link>
+      <pubDate>Wed, 29 Sep 2021 07:20:00 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-29/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;opener-bucket-brigade&#34;&gt;Opener: Bucket Brigade&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;http://usaco.org/index.php?page=viewproblem2&amp;amp;cpid=939&#34;&gt;bucket brigade&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You absolutely have the skills to do this problem. Do some examples
+and find out how it works!&lt;/p&gt;
+&lt;h2 id=&#34;portfolio&#34;&gt;Portfolio&lt;/h2&gt;
+&lt;p&gt;Using good Pythonic code, solve all three problems in some level of
+the &lt;a href=&#34;http://usaco.org/index.php?page=open19results&#34;&gt;2019 US Open&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Contents of a portfolio problem:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;New example: create your own example, probably on paper. A typed example
+would be ok, but is not expected.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Strategy paragraph: write a paragraph (or bulleted list) explaining your approach.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code a solution.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reflection:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Comfort level with this kind of problem (low/medium/high)&lt;/li&gt;
+&lt;li&gt;What difficulties did you have?&lt;/li&gt;
+&lt;li&gt;How long did it take?&lt;/li&gt;
+&lt;li&gt;When/how did you consult with other people? Explain what you got
+out of it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;workload-management&#34;&gt;Workload Management&lt;/h2&gt;
+&lt;p&gt;You should be solving one problem per day in class, and leave one
+problem for outside of class. If you are working on problems that take
+lots longer, talk to me and we can adjust expectations.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 09-30</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-30/</link>
+      <pubDate>Fri, 01 Oct 2021 09:47:08 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-09-30/</guid>
+      <description>
+        
+        
+        &lt;ul&gt;
+&lt;li&gt;Examples are important.&lt;/li&gt;
+&lt;li&gt;Work at an appropriate level.&lt;/li&gt;
+&lt;li&gt;Debugging is important.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;observations&#34;&gt;Observations&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;In my opinion, problem solving in computer science comes through
+working examples. Slow down enough to make examples and think
+through your program to make sure it gives the results you want for
+those examples.&lt;/li&gt;
+&lt;li&gt;Do not move to a higher level problem until you can do the ones at
+your current level &lt;em&gt;easily&lt;/em&gt;. Two hours to get a working solution
+means you need to continue to work at that level. One hour, probably
+the same.&lt;/li&gt;
+&lt;li&gt;Ego tells us to push on when we do not have a solid
+foundation. Choose learning over ego.&lt;/li&gt;
+&lt;li&gt;When you fix a problem, look back and identify the source of the
+error. Mistakes are unavoidable. Ask yourself: was there something
+you could have done differently that would have lead you to find the
+mistake more quickly?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;problem-sets&#34;&gt;Problem Sets&lt;/h2&gt;
+&lt;p&gt;You may discover that you do not have enough knowledge to complete one
+of the three problems. Make a clear writeup including examples and
+what method you believe will work.&lt;/p&gt;
+&lt;p&gt;Consider using Python sets and dictionaries in your work.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-06 Graph</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-06/</link>
+      <pubDate>Wed, 06 Oct 2021 09:30:20 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-06/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;default-dictionary&#34;&gt;Default Dictionary&lt;/h2&gt;
+&lt;p&gt;Sometimes you want to have a &amp;ldquo;default value&amp;rdquo; in a dictionary. The
+default value is returned whenever you ask for the value of a key that
+is not in the dictionary. A typical use would be counting words,
+where the count starts at 0 the first time you see a word.&lt;/p&gt;
+&lt;h3 id=&#34;basic-usage&#34;&gt;Basic Usage&lt;/h3&gt;
+&lt;p&gt;Import the default dictionary from the &lt;a href=&#34;https://docs.python.org/3/library/collections.html&#34;&gt;collections&lt;/a&gt; package.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from collections import defaultdict
+
+a = dict()
+a[5] ## error
+
+b = defaultdict(int)
+b[5] ## gives 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;advanced-usage&#34;&gt;Advanced Usage&lt;/h3&gt;
+&lt;p&gt;You can write your own default function, or use built in constructors
+like &lt;code&gt;list&lt;/code&gt; or &lt;code&gt;set&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def ten(): return 9
+c = defaultdict(ten)
+c[5] ## gives 9
+
+d = defaultdict(list)
+d[5].append(9)
+d[5].append(11)
+d[5] ## the list [9,11]
+
+g = defaultdict(set)
+g[5].add(100)
+g[5].add(200)
+g[5] ## the set {100,200}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;practice&#34;&gt;Practice&lt;/h2&gt;
+&lt;p&gt;Generate a list of 25 random integers like this: choose an integer
+x in the interval [0,10], square it, add that to the list. Produce
+a histogram chart of the frequency of each number 0..100. Print out
+each nonzero count &lt;code&gt;number: count&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;81&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;81&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;25&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;81&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;25&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# should be random squares&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;histogram&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;print&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;## { 4: 6, 25: 2, 81 : 3}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;print&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;fancy&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;##  4 xxxxxx   &amp;lt;-- good spacing on 4 optional&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;## 25 xx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;## 81 xxx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Stress testing: change your list to be 250,000 random integers in the
+range [0,100000]. Find every number that appears more than nine times.
+Output your information in ascending order so it looks organized.&lt;/p&gt;
+&lt;h2 id=&#34;graph&#34;&gt;Graph&lt;/h2&gt;
+&lt;p&gt;Make a &lt;code&gt;Graph&lt;/code&gt; class that the following methods:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;adjacency list is stored in the dictionary &lt;code&gt;self.edges&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(OMIT) adjacency list is sorted in ascending numerical order&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;vertices are numbered 0 up to but not including &lt;code&gt;self.nvertices&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(OMIT) total count of edges is &lt;code&gt;self.nedges&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;self.degree(v)&lt;/code&gt; gives the degree of vertex v = number of edges
+going out of v.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a graph from a number of vertices along with a list of lists
+of integers, &amp;ldquo;edges&amp;rdquo;. See the Reader Tests section for examples of
+the format. The
+line &lt;code&gt;[1,5,6]&lt;/code&gt; in &lt;code&gt;edges&lt;/code&gt; indicate that vertex 1 connects to
+vertices 5 and 6. That could also be specified on two lines with
+edges being &lt;code&gt;[[1,5],[1,6]]&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; Graph.read_graph1(nvertices: int, edges: [[int]]) -&amp;gt; &#39;Graph&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Graph.read_string1(theString)&lt;/code&gt;: load a graph from a single string.
+See below for the format.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Graph.read_graph(fileH)&lt;/code&gt; loads the graph from an open filehandle.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;self.__str__()&lt;/code&gt; prints out the human-readable representation just
+like &lt;a href=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-09-23/&#34;&gt;maze&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;reader-tests&#34;&gt;Reader Tests&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;graph-01.txt&#34;&gt;Graph 1&lt;/a&gt;: A line &lt;code&gt;0-1-2-3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;graph-02.txt&#34;&gt;Graph 2&lt;/a&gt;: A square.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;graph-03.txt&#34;&gt;Graph 3&lt;/a&gt;: &amp;ldquo;Uncompressed&amp;rdquo; format, lists one edge per
+line.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;graph-04.txt&#34;&gt;Graph 4&lt;/a&gt;: An octagon.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;graph-bfs&#34;&gt;Graph: BFS&lt;/h2&gt;
+&lt;p&gt;(Assignment change: Do shortest distance first!)&lt;/p&gt;
+&lt;p&gt;Write a function to produce a list of vertices in the graph, starting
+with 0, in breadth first order.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;gdata = &amp;#34;&amp;#34;&amp;#34;
+NVERT 11
+0 8
+1 2
+2 8
+3 5 8
+4 5
+5 10
+6 9
+7 10
+8
+9 10
+10
+&amp;#34;&amp;#34;&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Test output:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;g = Graph.read_graph(gdata.strip().split(&amp;#34;\n&amp;#34;))
+order = g.bfs0()
+print(order)
+## [0,8,2,3,1,5,4,10,7,9,6]
+&lt;/code&gt;&lt;/pre&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-08 Shortest</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-08/</link>
+      <pubDate>Thu, 07 Oct 2021 07:21:41 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-08/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;skills-base&#34;&gt;Skills base&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Sorting into a new container: &lt;code&gt;ys = sorted(..., reverse=True)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Sorting by mutation, changing the existing container:
+&lt;code&gt;xs.sort(reverse=True)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Field width: &lt;code&gt;f&amp;quot;{x:10}&amp;quot;&lt;/code&gt; puts x in a space 10 characters wide.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;improvements-to-graphpy&#34;&gt;Improvements to graph.py&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Define a type &lt;code&gt;Vertex = int&lt;/code&gt; at the start.&lt;/li&gt;
+&lt;li&gt;Make sure your class is called &lt;code&gt;Graph&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Write an insert edge method &lt;code&gt;g.insert_edge(v,w)&lt;/code&gt; that inserts a
+normal edge connnecting &lt;code&gt;v&lt;/code&gt; and &lt;code&gt;w&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;distance-experiments&#34;&gt;Distance Experiments&lt;/h2&gt;
+&lt;p&gt;Setup:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from graph import Graph, Vertex
+def add_random_edges(g: Graph, how_many: int) -&amp;gt; None:
+    pass
+def shortest_distances(g: Graph, start: Vertex) -&amp;gt; dict[Vertex, int]:
+    pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Write the function &lt;code&gt;add_random_edges&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write a function &lt;code&gt;shortest_distances&lt;/code&gt; that returns a dictionary of
+the shortest distances (fewest possible edges) between the starting
+vertex and every other vertex.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Demonstrate your &lt;code&gt;shortest_distances&lt;/code&gt; function works by creating a
+random maze on 12 vertices (see below), then:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Draw it on paper &lt;em&gt;with no crossing edges&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Manually track the shortest path to each of the
+vertices.&lt;/li&gt;
+&lt;li&gt;Check that the shortest distances you get agree with your program.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;simple-maze-generator&#34;&gt;Simple Maze Generator&lt;/h2&gt;
+&lt;p&gt;You can use my maze generator or write one yourself. The code below
+just connects every vertex to a random vertex that is already
+connected to the &amp;ldquo;root&amp;rdquo; 0.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;mazegen&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;nvertices&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Graph&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#000&#34;&gt;used&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#000&#34;&gt;available&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#204a87&#34;&gt;list&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;range&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;nvertices&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#000&#34;&gt;random&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;shuffle&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;available&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#000&#34;&gt;g&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Graph&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;nvertices&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;nvertices&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;y&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;available&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#000&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;random&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;choice&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;used&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#000&#34;&gt;g&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;insert_edge&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;y&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#000&#34;&gt;used&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;append&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;y&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;analyzing-mazes&#34;&gt;Analyzing Mazes&lt;/h2&gt;
+&lt;p&gt;Research question: when you add random edges to an existing maze, how
+are the shortest distances affected?&lt;/p&gt;
+&lt;p&gt;Experiment:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Generate a random graph (&amp;ldquo;maze&amp;rdquo;) with 2000 vertices.&lt;/li&gt;
+&lt;li&gt;Compute the shortest distances from 0 to every vertex.&lt;/li&gt;
+&lt;li&gt;Add 100 random edges to your graph.&lt;/li&gt;
+&lt;li&gt;Again, compute the shortest distances.&lt;/li&gt;
+&lt;li&gt;Analyze how much the shortest distances, producing a table of
+values showing a table of how much they change with the addition of
+100 random edges.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example output:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;==== ALL CHANGES, ASCENDING ====
+         0 1281
+         1  192
+         2  173
+         3   96
+         4  126
+         5   35
+         6   40
+         7   19
+         8   32
+         9    5
+        10    1
+&lt;/code&gt;&lt;/pre&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-13 Basics</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-13a/</link>
+      <pubDate>Wed, 13 Oct 2021 07:00:04 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-13a/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Python proficiency questions.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Suppose &lt;code&gt;x&lt;/code&gt; is an object of class &lt;code&gt;CC&lt;/code&gt;. What method is run by
+&lt;code&gt;str(x)&lt;/code&gt;?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Give an efficient way to remove the trailing newlines from an array of
+strings read from a file.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; [&#39;the\n&#39;,&#39;mouse\n&#39;,&#39;went\n&#39;,&#39;up\n&#39;,&#39;the\n&#39;,&#39;clock\n&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;When you read the lines from a file, you get to following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; [&#39;\n&#39;,&#39;\n&#39;,&#39;\n&#39;,&#39;NVERT 2\n&#39;,&#39;0 1\n&#39;,&#39;\n&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are a bunch of blank lines that should be ignored.  What do
+you recommend to do about this annoyance? Note: totally empty
+lines are almost as annoying as lines with newlines. Write code
+show how you plan to handle the problem, beginning with &lt;code&gt;f = open(&amp;quot;demo.txt&amp;quot;,&amp;quot;r&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(&lt;code&gt;fnsr&lt;/code&gt;) A file &lt;code&gt;f&lt;/code&gt; consists of two numbers and a string. Write a
+function &lt;code&gt;fnsr&lt;/code&gt; to determine if the sum of the two numbers equals
+the number of characters in the
+string. the input to &lt;code&gt;fnstr&lt;/code&gt; is the &lt;a href=&#34;https://stackoverflow.com/questions/38569401/type-hint-for-a-file-or-file-like-object&#34;&gt;already open
+file&lt;/a&gt;
+returned from &lt;code&gt;open&lt;/code&gt;. The output is a boolean.
+Examples for True and False.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   5 8
+   abcdefghijklmnopqrstuvwyzabcdefghinjlmno
+
+   1 3
+   four
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--
+          Ruler
+          0        1         2         3         4
+          1234567890123456789012345678901234567890
+--&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-13 Stringy</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-13-stringy/</link>
+      <pubDate>Wed, 13 Oct 2021 07:00:04 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-13-stringy/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;stringy-storage-of-a-graph&#34;&gt;Stringy Storage of a Graph&lt;/h2&gt;
+&lt;p&gt;The (until now fictional) &amp;ldquo;string method&amp;rdquo; of
+storing a graph lists strings of connected vertices on every line.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Assignment: Write a function that accepts an already open file
+(returned from &lt;code&gt;open&lt;/code&gt;) and creates an instance of your Graph class
+by reading the &amp;ldquo;stringy graph file&amp;rdquo; described below.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def read_stringy(infile) -&amp;gt; Graph:
+    firstline = infile.readline()
+    return None
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;General format of a &amp;ldquo;stringy graph file&amp;rdquo;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    V xxx
+    L yyy
+    v1 v2 v3 ... vn
+    w1 w1 w3 ... wn
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;interpretation&#34;&gt;Interpretation&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The line with the &lt;code&gt;V&lt;/code&gt; specifies how many vertices, numbered 0
+up to xxx.&lt;/li&gt;
+&lt;li&gt;The line with the &lt;code&gt;L&lt;/code&gt; specifies how many vertex-chain specifying
+lines there
+are in the file.&lt;/li&gt;
+&lt;li&gt;The remaining lines indicate edges from v1 to v2, v2 to v3, v3
+to v4, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;Example 1&lt;/h3&gt;
+&lt;p&gt;A rectangle graph could be written:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;V 4
+L 1
+0 1 2 3 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would be equivalent to the adjacency list:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;NVERT 4
+0 1 3
+1 2
+2 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;Example 2&lt;/h3&gt;
+&lt;p&gt;Working with the graph below.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-10-13-stringy/graph-1.png&#34; width=&#34;100&#34;/&gt; 
+&lt;/figure&gt;
+&lt;p&gt;The &lt;code&gt;read_stringy&lt;/code&gt; function should be able to take in any
+of the alternative inputs listed below and produce a &lt;code&gt;Graph&lt;/code&gt; that
+represents the picture above.&lt;/p&gt;
+&lt;p&gt;There are several ways to write the graph for Example 2.&lt;/p&gt;
+&lt;p&gt;One possibility:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;V 5
+L 2
+0 1 2 3 0
+2 4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Alternatively:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;V 5
+L 2
+2 3 0
+0 1 2 4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or even:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;V 5
+L 1
+2 3 0 1 2 4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;additional-features&#34;&gt;Additional Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add a line &lt;code&gt;A zzz&lt;/code&gt; to indicate how many &amp;ldquo;aliases&amp;rdquo;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Then zzz lines of the form&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  0 WALL
+  1 BRING
+  2 HELP
+  3 DEMO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After the aliases are specified, you can give the list of vertices by
+using the aliases:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  WALL BRING HELP DEMO WALL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;is equivalent to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  0 1 2 3 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-15 Diameter</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-15/</link>
+      <pubDate>Wed, 13 Oct 2021 07:00:10 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-15/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Recall the setup from the previous project:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Generate a random graph (&amp;ldquo;maze&amp;rdquo;) with 2000 vertices.&lt;/li&gt;
+&lt;li&gt;Add 100 random edges to your graph.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;diameter&#34;&gt;Diameter&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&#34;https://en.wikipedia.org/wiki/Diameter_(graph_theory)&#34;&gt;diameter of a
+graph&lt;/a&gt; is the
+maximum shortest distance between any two vertices.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Draw two &amp;ldquo;nontrivial&amp;rdquo; example showing you can compute the
+diameter.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A 7 vertex graph where every vertex is
+within 3 of vertex 0 and the graph has a diameter of 6.&lt;/li&gt;
+&lt;li&gt;A 7 vertex graph where every vertex is within 3 of vertex 0
+and the graph has a diameter of 3. (Check?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write a function to compute the diameter of a graph.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Test your function using the 2000 vertex graph from earlier, before
+and after adding the random edges.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What diameters do you get?&lt;/li&gt;
+&lt;li&gt;Since the graphs are random, how much do the diameters change as
+you build different graphs?&lt;/li&gt;
+&lt;li&gt;How much do you &lt;em&gt;expect&lt;/em&gt; the diameter of the graph change when you
+add in those random edges? (Answer experimentally.)&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-19 Connected</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-19/</link>
+      <pubDate>Tue, 19 Oct 2021 11:05:56 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-19/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Write a function to find the number of connected components in a
+graph.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def connected_components(g: Graph) -&amp;gt; int:
+    return -1 # skeleton
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Follow the &lt;a href=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/design-process/&#34;&gt;design process&lt;/a&gt; to
+make it go more smoothly.&lt;/p&gt;
+&lt;h2 id=&#34;testing-your-code&#34;&gt;Testing your code&lt;/h2&gt;
+&lt;p&gt;You should make some simple examples before you get complicated with
+your testing.&lt;/p&gt;
+&lt;p&gt;I have some code to show the distribution of number of components in a
+random graph with 100 edges and 120 vertices.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;componenttest.txt&#34;&gt;random component test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;componentoutput.txt&#34;&gt;sample output from 10000 test runs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-20 Two Coloring</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-20/</link>
+      <pubDate>Wed, 20 Oct 2021 08:50:12 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-20/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A graph can be &amp;ldquo;colored&amp;rdquo; with N colors if you can paint every vertex
+with one of the N colors and have no edge between vertices of the
+same color. We will use integers to represent colors, like 0=red,
+1=green, etc. (The actual colors do not matter.)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    from typing import Dict, Optional
+    from graph import Vertex, Graph
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Produce an example to show you understand this&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write a function&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; def two_color(g: Graph) -&amp;gt; Optional[Dict[Vertex, int]]
+     return None
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;that produces a two coloring for a graph, or None if the graph
+cannot be two-colored.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
+&lt;p&gt;The graph below can be colored with two colors.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-10-20/color-2.png&#34; width=&#34;300&#34;/&gt; 
+&lt;/figure&gt;
+&lt;p&gt;The dictionary produced by &lt;code&gt;two_color&lt;/code&gt; from that coloring, using &lt;code&gt;0&lt;/code&gt;
+for blue and &lt;code&gt;1&lt;/code&gt; for orange, would be &lt;code&gt;{0:1, 1:1, 2:1, 3:0, 4:0, 5:0, 6:0, 7:1}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;An example of a graph that cannot be colored with two colors is the
+five vertex graph below.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-10-20/color-needs-3.png&#34; width=&#34;250&#34;/&gt; 
+&lt;/figure&gt;
+&lt;p&gt;The result of running &lt;code&gt;two_color&lt;/code&gt; on that graph would be &lt;code&gt;None&lt;/code&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 10-27 Slow Cut</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-27/</link>
+      <pubDate>Wed, 27 Oct 2021 10:15:06 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-10-27/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A &lt;em&gt;cut vertex&lt;/em&gt; or &amp;ldquo;articulation vertex&amp;rdquo; is a vertex whose removal
+disconnects the graph.&lt;/p&gt;
+&lt;p&gt;There is an efficient way of finding cut vertices, but as a warm up we
+will just focus on a simple algorithm.&lt;/p&gt;
+&lt;p&gt;Remember: you should develop test cases and examples so you have
+confidence your code works.&lt;/p&gt;
+&lt;p&gt;Here is the plan, as discussed in class:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Write &lt;code&gt;get_component&lt;/code&gt;, a function which returns only the connected
+component of a graph containing a given vertex.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; def get_component(g: Graph, v: Vertex) -&amp;gt; Graph:
+     return Graph(0) # TODO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Danger: some code may assume that the vertices of a graph
+with &lt;code&gt;N&lt;/code&gt; vertices are &lt;code&gt;[0..N-1]&lt;/code&gt;.
+Fix this problem if you discover it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Given a graph and a single vertex &lt;code&gt;v&lt;/code&gt;, create a new graph identical to
+the original except excluding &lt;code&gt;v&lt;/code&gt; and edges that connect to &lt;code&gt;v&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; def graph_without(g: Graph, v: Vertex) -&amp;gt; Graph:
+     return g # TODO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Determine if &lt;code&gt;v&lt;/code&gt; is a cut vertex by counting the connected
+components of &lt;code&gt;graph_without(g,v)&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; def cut_vertex(g: Graph, v: Vertex) -&amp;gt; Bool:
+     return False # TODO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a list of all cut vertices in a graph.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; def all_cut(g: Graph) -&amp;gt; [Vertex]:
+     return [] # TODO
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 11-16 Tree Diam</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-11-16/</link>
+      <pubDate>Tue, 16 Nov 2021 07:19:32 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-11-16/</guid>
+      <description>
+        
+        
+        &lt;ol&gt;
+&lt;li&gt;What is the definition of a &lt;em&gt;tree&lt;/em&gt;? (That is, what conditions on a
+graph cause it to be considered a tree?)&lt;/li&gt;
+&lt;li&gt;The diameter of a graph is the maximum distance between any two
+vertices. For a general graph, a quadratic algorithm is
+needed. When a graph is known to be a tree, describe a potentially
+more efficient algorithm for finding its diameter.
+(Skeina, Exercise 5-19)&lt;/li&gt;
+&lt;li&gt;Implement &lt;em&gt;and test&lt;/em&gt; your algorithm.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;testing&#34;&gt;Testing&lt;/h2&gt;
+&lt;p&gt;You are going to implement some randomized testing of your
+algorithm. To do this, you need both:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A definitely correct (slow) algorithm for finding the diameter of a
+graph.&lt;/li&gt;
+&lt;li&gt;A new, fast algorithm (from above) for finding the diameter of a
+tree.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The method of testing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Varying random graphs with 1-20 vertices.&lt;/li&gt;
+&lt;li&gt;Varying initial random number of edges (1 to number of vertices).&lt;/li&gt;
+&lt;li&gt;Add edges until the graph is connected to avoid testing unconnected
+graphs, which we do not care about. (Diameter would be infinite in this case.)&lt;/li&gt;
+&lt;li&gt;Compute the diameter with your slow algorithm.&lt;/li&gt;
+&lt;li&gt;Compute the diameter with your fast algorithm.&lt;/li&gt;
+&lt;li&gt;Compare and summarize results.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A summary of the results will include at least one picture of any example you
+find where the two algorithms give different answers.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: You should do two kinds of random testing - randomly
+producing any graph (as described above) and randomly producing a tree
+(use mazegen from the &lt;a href=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-10-08/&#34;&gt;shortest distance assignment&lt;/a&gt;).&lt;/p&gt;
+&lt;h2 id=&#34;challenge&#34;&gt;Challenge&lt;/h2&gt;
+&lt;p&gt;Skiena, Exercise 5-13.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 12-01 Weighted</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-01/</link>
+      <pubDate>Wed, 01 Dec 2021 09:25:01 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-01/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;weightedgraph-class&#34;&gt;WeightedGraph Class&lt;/h2&gt;
+&lt;p&gt;Make a WeightedGraph subclass of your Graph class. (Just copy and edit
+if you&amp;rsquo;re not interested in subclassing.)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;self.weights[(a,b)] == wt&lt;/code&gt; means the edge from a to b has
+weight &lt;code&gt;wt&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The weights dictionary should be symmetric (just like the edges),
+so every time you add a weight from a to b, you should put the
+same weight from b to a.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;reader-for-weightedgraph&#34;&gt;Reader for WeightedGraph&lt;/h2&gt;
+&lt;p&gt;Make a reader for your WeightedGraph class. The input should have this
+form:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    NVERT 3
+    0 1 2
+    1
+    2
+    WEIGHTS 2
+    0 1 100
+    0 2 200
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 12-02 MST Testing</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-02/</link>
+      <pubDate>Fri, 03 Dec 2021 08:00:02 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-02/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;minimal-spanning-tree-basic-version&#34;&gt;Minimal Spanning Tree: Basic Version&lt;/h2&gt;
+&lt;p&gt;We discussed in class a method for creating a minimal spanning
+tree from a weighted graph. If you need to look it up, it is known as
+Prim&amp;rsquo;s Algorithm.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from typing import List, Dict, Tuple, Set
+def spanning_tree(g: WeightedGraph, start: Vertex)
+                 -&amp;gt; Set[Tuple[Vertex, Vertex]]: 
+    answer = set()
+    return answer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;data-to-produce&#34;&gt;Data to produce&lt;/h2&gt;
+&lt;p&gt;Create a function that finds a minimal spanning tree of a random graph
+with n vertices and 10*n edges. Produce a table of timing values for
+n=[50,100..500] and graph your results.&lt;/p&gt;
+&lt;h2 id=&#34;random-graph&#34;&gt;Random Graph&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;wg.insert_weighted_edge(self, start, end, wt)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WeightedGraph.random(n_vertices, n_edges, max_weight)&lt;/code&gt;: Add random
+edges with weight randomly selected in &lt;code&gt;range(max_weight)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;timing&#34;&gt;Timing&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;import timeit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeit.timeit(func, number=5)&lt;/code&gt;: Produce time by running &lt;code&gt;func&lt;/code&gt; five
+times. The function must take no arguments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When you are timing your code, you should make sure you only compute
+the time for the actual algorithm, not any setup. In this case, that
+means not including the random graph generation in your timings.&lt;/p&gt;
+&lt;p&gt;Suggested organization:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;st_timing(wg: WeightedGraph) -&amp;gt; float&lt;/code&gt;: A function to time your
+algorithm given a weighted graph. This function uses &lt;code&gt;timeit&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;st_random_timing(n_vertices: int, n_edges: int) -&amp;gt; float&lt;/code&gt;: A
+function that generates your random graph and then calls the
+&lt;code&gt;st_timing&lt;/code&gt; function on it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;st_summary()&lt;/code&gt;: Generate a list of ordered pairs and print out the
+data in a format usable by your graphing tool (e.g., &amp;ldquo;n,
+timing_result,&amp;rdquo; on each line).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;graphing-results&#34;&gt;Graphing Results&lt;/h2&gt;
+&lt;p&gt;It is important to visualize your results. Sometimes trends or
+mistakes are clear from a picture but hard to see in the raw numbers.&lt;/p&gt;
+&lt;p&gt;You can use any method you would like to make a line graph. One
+possibility is Google Sheets.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Paste your timings into a Google
+Sheet.&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;=split(CELL, &#39;,&#39;)&lt;/code&gt; to break up the x and y coordinates of
+your pairs.&lt;/li&gt;
+&lt;li&gt;Select the columns with the separate x and y values and
+Insert -&amp;gt; Chart to create a line graph.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 12-06 MST Wrapup</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-06/</link>
+      <pubDate>Tue, 07 Dec 2021 08:08:53 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2021-12-06/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Key question: how do you know your code produces a &lt;em&gt;minimal&lt;/em&gt; spanning
+tree? Try some of these test cases.&lt;/p&gt;
+&lt;h2 id=&#34;total-weight&#34;&gt;total weight&lt;/h2&gt;
+&lt;p&gt;Write a new method in the weighted graph class to return the total
+weight of all of the edges given.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def total_weight(self, edges: Set[Edge]]) -&amp;gt; int:
+    return 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-cases&#34;&gt;test cases&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2021-12-06/smallspan.png&#34; width=&#34;200&#34;/&gt; 
+&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;wgraph2.txt&#34;&gt;WeightedGraph(V=5, E=7)&lt;/a&gt;, shown above. The minimal spanning tree has
+weight 7.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;wgraph1.txt&#34;&gt;WeightedGraph(V=20, E=29)&lt;/a&gt; with minimal spanning tree
+of weight 347.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;wgraph3.txt&#34;&gt;WeightedGraph(V=200, E=400)&lt;/a&gt;. The weight of the
+minimal spanning tree is 17467.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;generic-setup&#34;&gt;generic setup&lt;/h2&gt;
+&lt;p&gt;This would come first in your code, but it&amp;rsquo;s the least important so
+it&amp;rsquo;s last on this page.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from typing import Tuple, List, Set
+Vertex = int
+Edge = Tuple[Vertex, Vertex]
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 01-14 Minimum Distance</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-01-14/</link>
+      <pubDate>Fri, 14 Jan 2022 10:09:17 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-01-14/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Implementing Dijkstra&amp;rsquo;s algorithm to find the minimum cost path from a
+starting vertex.&lt;/p&gt;
+&lt;p&gt;Test cases:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;wgraph1.txt&#34;&gt;Example 1&lt;/a&gt; (6 vertices) Shortest distance from 0 to 5
+is 50.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;wgraph2.txt&#34;&gt;Example 2&lt;/a&gt; (10 vertices) Shortest distance from 0 to 9
+is 80.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;wgraph3.txt&#34;&gt;Example 3&lt;/a&gt; (20 vertices) Shortest distance from 0 to 12 is 47. From 0
+to 16 is 226.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;wgraph4.txt&#34;&gt;Example 4&lt;/a&gt; (200 vertices) Shortest distance from 0 to
+36 is 77. From 0 to 191 is 101.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;wgraph5.txt&#34;&gt;Example 5&lt;/a&gt; (2000 vertices) Distances from 0:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  distanceTo[1117]=217
+  distanceTo[1646]=203
+  distanceTo[1732]=229
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The longest &amp;ldquo;shortest distance path&amp;rdquo; from vertex 0 is to vertex 658 and the distance
+is 306. The path itself is:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  [   0, 1697,  803, 1699,  708, 1420, 427,  574, 1534, 1955, 
+   1954,  405, 1532, 1724, 1758, 1913, 658]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: Topological Sort</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-01-19/</link>
+      <pubDate>Wed, 19 Jan 2022 20:08:13 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-01-19/</guid>
+      <description>
+        
+        
+        &lt;p&gt;&lt;strong&gt;Dangers and Annoyances&lt;/strong&gt;: Make sure you have a way of reading in
+&lt;em&gt;directed&lt;/em&gt; graphs. In a directed graph, when you encounter an edge
+from &lt;code&gt;a&lt;/code&gt; to &lt;code&gt;b&lt;/code&gt;, you should not automatically create an edge from &lt;code&gt;b&lt;/code&gt;
+to &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Graph data.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;topo-010-graph.txt&#34;&gt;Example 1&lt;/a&gt;, 7 vertices.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;topo-025-graph.txt&#34;&gt;Example 2&lt;/a&gt;, 23 vertices.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;topo-050-graph.txt&#34;&gt;Example 3&lt;/a&gt;, 43 vertices.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;topo-100-graph.txt&#34;&gt;Example 4&lt;/a&gt;, 94 vertices.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;topo-200-graph.txt&#34;&gt;Example 5&lt;/a&gt;, 192 vertices.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There is also code to generate a random directed acyclic graph linked
+below in the &lt;em&gt;Timing&lt;/em&gt; section.&lt;/p&gt;
+&lt;h2 id=&#34;verification-code&#34;&gt;Verification code&lt;/h2&gt;
+&lt;p&gt;Write code to verify that a list of vertices is in topologically
+sorted order.&lt;/p&gt;
+&lt;p&gt;Just check that the given vertices are ordered so that
+a vertex that appears later in the list does not connect to a vertex
+earlier in the list. No need to
+check for pathologies like missing vertices or other random errors.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;topo-011-graph.txt&#34;&gt;Example 6&lt;/a&gt;, with 11 vertices, along with a
+&lt;a href=&#34;topo-011-order.txt&#34;&gt;topologically sorted list of vertices&lt;/a&gt; and a
+&lt;a href=&#34;topo-011-bad.txt&#34;&gt;list that is not topologically sorted&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;def is_topological_sort(g: Graph, topo: List[Vertex]) -&amp;gt; bool:
+    return false
+&lt;/code&gt;&lt;/pre&gt;&lt;figure&gt;&lt;a href=&#34;topo-011-render.png&#34;&gt;
+    &lt;img src=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2022-01-19/topo-011-render.png&#34; width=&#34;250&#34;/&gt; &lt;/a&gt;
+&lt;/figure&gt;
+&lt;!--
+The code below will verify that you have produced a topologically
+sorted list of vertices of a graph. 
+
+```python
+def is_topological_sort(g: Graph, topo: List[Vertex]) -&gt; bool:
+    &#34;&#34;&#34;Is the order of vertices in topo a valid topological sort for g?&#34;&#34;&#34;
+    order = {v: n for n, v in enumerate(topo)}
+    result = True
+    for v in g.vertices:
+        for w in g.edges[v]:
+            if order[v] &gt; order[w]:
+                result = False
+    return result
+```
+--&gt;
+&lt;h2 id=&#34;timing&#34;&gt;Timing&lt;/h2&gt;
+&lt;p&gt;We want to compare the slow method (also called &amp;ldquo;naive&amp;rdquo;) and a faster
+method of finding a topologically sorted order for the vertices of a
+graph.&lt;/p&gt;
+&lt;p&gt;Produce a graph of speed of execution vs number of vertices, for n in
+[10,100,500,1000,1500,2000]. When you are totally done, you will have
+two lines:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Slow method (do as soon as you have a working slow method)&lt;/li&gt;
+&lt;li&gt;Faster method&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Use a random 20% chance of creating each
+edge in the &lt;a href=&#34;random-digraph.txt&#34;&gt;code to make a random directed acyclic graph&lt;/a&gt;.&lt;/p&gt;
+&lt;figure&gt;&lt;a href=&#34;topo-sort-slow-timing.png&#34;&gt;
+    &lt;img src=&#34;https://maueroats.github.io/teaching--2022-2023/teaching--2022-2023/ai/daily/2022-01-19/topo-sort-slow-timing.png&#34;/&gt; &lt;/a&gt;
+&lt;/figure&gt;
+&lt;p&gt;Timing information should not include the construction of the random
+graph. Typical timing code would look like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import timeit
+# ...
+def do_timing():
+    g = ... build random graph ...
+    work_f = lambda : topological_sort(g)
+    t = timeit.timeit(work_f, number=10)
+    return(t/10)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;random-questions&#34;&gt;Random Questions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Why do you need to work with directed acyclic graphs for topological
+sort? What if the graph were not directed? What if the graph were
+not acyclic?&lt;/li&gt;
+&lt;li&gt;In a topologically sorted ordering, does switching the positions of
+unconnected siblings (vertices that share the same parent and do not
+have an edge between them) still give you a topologically sorted
+ordering of the verties? Explain.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: 01-19 Topo Writeup</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-01-19-writeup/</link>
+      <pubDate>Wed, 19 Jan 2022 10:46:21 -0600</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/daily/2022-01-19-writeup/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Implementations of topological sort: fast, slow&lt;/li&gt;
+&lt;li&gt;Verifier: checks for a valid order&lt;/li&gt;
+&lt;li&gt;Timing: time and produce a graph. For small size graphs you may need
+a relatively large number of repetitions to get repeatable measurements.&lt;/li&gt;
+&lt;li&gt;Code cleanup
+&lt;ul&gt;
+&lt;li&gt;Good names for functions and variables&lt;/li&gt;
+&lt;li&gt;Purpose statements for each function&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Descriptions: a high level description of each method (slow,
+fast). Include reasoning why the method works.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My slow method takes about 0.2 seconds for one run of a 2000 vertex graph, if
+you&amp;rsquo;re trying to figure out whether your method is fast or slow.&lt;/p&gt;
+&lt;h2 id=&#34;details&#34;&gt;Details&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;(Correctness I.) Have a function that automatically runs through the
+posted test examples and verifies your solutions are correct.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(Correctness II.) Have a function that randomly tests your code by
+generating a random graph of some size, topologically sorting it,
+then verifying that the output list is valid for your graph.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the end, write &lt;code&gt;random_checker(graph_size, number_of_trials)&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once you know your code works then edit to produce &lt;strong&gt;CLEAN CODE&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Ai: AI Resources</title>
+      <link>https://maueroats.github.io/teaching--2022-2023/ai/resources/</link>
+      <pubDate>Mon, 30 Aug 2021 11:46:04 -0500</pubDate>
+      
+      <guid>https://maueroats.github.io/teaching--2022-2023/ai/resources/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;python&#34;&gt;Python&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://replit.com/languages/python3&#34;&gt;Python on ReplIt.com&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.anaconda.com/&#34;&gt;Conda&lt;/a&gt; for the home
+install. Add &lt;a href=&#34;https://github.com/mamba-org/mamba&#34;&gt;Mamba&lt;/a&gt; for a faster
+package manager.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;books&#34;&gt;Books&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The official &lt;a href=&#34;https://docs.python.org/3/tutorial/index.html&#34;&gt;python tutorial&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://openbookproject.net/thinkcs/python/english3e/&#34;&gt;How to Think Like a Computer
+Scientist&lt;/a&gt;. An
+online version with little interpreter boxes to run your code is at
+&lt;a href=&#34;https://runestone.academy/runestone/books/published/thinkcspy/index.html&#34;&gt;Runestone Python&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/Algorithm-Design-Manual-Computer-Science/dp/3030542556&#34;&gt;The Algorithm Design
+Manual&lt;/a&gt;
+by Steven Skiena. Used for graph theory.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/norvig/paip-lisp&#34;&gt;Paradigms of Artificial Intelligence Programming&lt;/a&gt; by Peter
+Norvig. Used for the projects like the English grammar sentence
+generator and the General Problem Solver. Written in Common Lisp so
+you are probably not going to be reading it directly.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
